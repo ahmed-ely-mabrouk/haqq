@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { SearchBar } from "./components/SearchBar";
+import { Articles } from "./components/Articles";
+import { articles } from "./data/articles";
 
 function App() {
+  const [searchValue, setSearchValue] = React.useState<string>("");
+
+  const filteredArticles = React.useMemo(() => {
+    if (!searchValue) {
+      return articles;
+    }
+
+    return articles.filter(
+      (article) =>
+        article.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+        article.content.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  }, [searchValue]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SearchBar
+        value={searchValue}
+        onChange={(e: any) => setSearchValue(e.target.value)}
+        onClear={() => setSearchValue("")}
+      />
+      <Articles articles={filteredArticles} />
     </div>
   );
 }
