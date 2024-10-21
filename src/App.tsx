@@ -3,9 +3,10 @@ import "./App.css";
 import { SearchBar } from "./components/SearchBar";
 import { Articles } from "./components/Articles";
 import { articles } from "./data/articles";
+import { useSearch } from "./context/searchValue";
 
 function App() {
-  const [searchValue, setSearchValue] = React.useState<string>("");
+  const { searchValue } = useSearch();
 
   const filteredArticles = React.useMemo(() => {
     if (!searchValue) {
@@ -21,11 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <SearchBar
-        value={searchValue}
-        onChange={(e: any) => setSearchValue(e.target.value)}
-        onClear={() => setSearchValue("")}
-      />
+      <SearchBar />
       <Articles articles={filteredArticles} />
     </div>
   );
