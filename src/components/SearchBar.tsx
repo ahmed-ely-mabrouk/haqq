@@ -6,14 +6,15 @@ export const SearchBar = () => {
   const hasValue = searchValue.length > 0;
 
   return (
-    <div className="search-bar">
-      <h1 className="text-4xl mb-8">Search</h1>
-      <div className="relative flex align-middle bg-white w-full">
+    <div>
+      <h1 className="text-4xl mb-8 mt-4">Search</h1>
+      <div className="relative flex align-middle w-full">
         <input
           type="text"
           value={searchValue}
           onChange={(e: any) => setSearchValue(e.target.value)}
-          className="w-full border-2 p-2"
+          className="w-full border-2 border-black p-2 rounded-md bg-light-gray"
+          placeholder="search for articles..."
         />
         <span
           className={`absolute top-2 right-4 flex items-center justify-center w-6 h-6 ${

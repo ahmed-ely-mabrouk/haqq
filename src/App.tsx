@@ -10,13 +10,20 @@ function App() {
 
   const filteredArticles = React.useMemo(() => {
     if (!searchValue) {
-      return articles;
+      return articles.sort(
+        (a, b) =>
+          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+      );
     }
 
-    return articles.filter(
+    const result = articles.filter(
       (article) =>
         article.title.toLowerCase().includes(searchValue.toLowerCase()) ||
         article.content.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    return result.sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     );
   }, [searchValue]);
 
